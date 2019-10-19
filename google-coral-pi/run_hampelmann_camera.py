@@ -1,5 +1,5 @@
-# Originally Copyright 2019 Google LLC
-# Adapted at Saar Hackathon November 2019 https://www.what-the-hack.saarland/
+# Original Copyright 2019 Google LLC
+# Adapted pose_camery.py at Saar Hackathon November 2019 https://www.what-the-hack.saarland/
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
