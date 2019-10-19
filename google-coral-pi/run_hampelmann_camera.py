@@ -67,7 +67,7 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
         xLeftEar = xysLeftEar[1]
         xRightEar = xysRightEar[1]
         dxEars = abs(xLeftEar - xRightEar)
-        dwg.add(dwg.circle(center=(xysNose[0], xysNose[1]), r=int(dxEars/1.3),
+        dwg.add(dwg.circle(center=(xysNose[0], xysNose[1]), r=int(dxEars/1.4),
                                fill='red', fill_opacity=1.0, stroke=color))
 
 #        dwg.add(dwg.ellipse(center=(xysLeftEar[0], xysLeftEar[1]), r=(int(dxEars), int(dxEars)*1.5),
