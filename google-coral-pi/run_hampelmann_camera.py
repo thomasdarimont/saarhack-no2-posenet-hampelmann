@@ -66,7 +66,7 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
     xysNose = xys["nose"];
     xysLeftEar = xys["left ear"];
     xysRightEar = xys["right ear"];
-    if not xysNose is None:
+    if not (xysNose is None or xysLeftEar is None or xysRightEar is None):
         xLeftEar = xysLeftEar[1]
         xRightEar = xysRightEar[1]
         dxEars = abs(xLeftEar - xRightEar)
