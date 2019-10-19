@@ -15,12 +15,10 @@
 
 import argparse
 from functools import partial
-import re
 import time
 
-import numpy as np
-from PIL import Image
 import svgwrite
+from svgwrite.image import Image as SVGImage
 import gstreamer
 
 from pose_engine import PoseEngine
@@ -47,12 +45,13 @@ EDGES = (
     ('right knee', 'right ankle'),
 )
 
-
 def shadow_text(dwg, x, y, text, font_size=16):
     dwg.add(dwg.text(text, insert=(x + 1, y + 1), fill='black',
                      font_size=font_size, style='font-family:sans-serif'))
     dwg.add(dwg.text(text, insert=(x, y), fill='white',
                      font_size=font_size, style='font-family:sans-serif'))
+
+noseImage=SVGImage("../media/Nose.png")
 
 # dwg: svg_canvas, pose
 def draw_pose(dwg, pose, color='yellow', threshold=0.2):
@@ -62,6 +61,9 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
         xys[label] = (int(keypoint.yx[1]), int(keypoint.yx[0]))
         dwg.add(dwg.circle(center=(int(keypoint.yx[1]), int(keypoint.yx[0])), r=5,
                            fill='cyan', fill_opacity=keypoint.score, stroke=color))
+
+    global noseImage
+    dwg.add(noseImage)
 
     xysNose = xys.get("nose")
     xysLeftEar = xys.get("left ear")
