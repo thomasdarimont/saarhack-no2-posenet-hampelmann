@@ -77,7 +77,7 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
         dwg.add(dwg.line(start=(ax, ay), end=(bx, by), stroke=color, stroke_width=2))
 
     if not xysNose is None:
-        noseImage = SVGImage("Nose.png", (xysNose[0], xysNose[1]), (64, 64))
+        noseImage = SVGImage("Nose.png", insert=(xysNose[0], xysNose[1]), size=(64, 64))
         dwg.add(noseImage)
 
 def run(callback, use_appsrc=False):
