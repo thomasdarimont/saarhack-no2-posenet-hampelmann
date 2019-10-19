@@ -70,10 +70,10 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
         dwg.add(dwg.circle(center=(xysNose[0], xysNose[1]), r=int(dxEars/2.0),
                                fill='red', fill_opacity=1.0, stroke=color))
 
-        dwg.add(dwg.ellipse(center=(xLeftEar[0], xLeftEar[1]), r=(int(dxEars), int(dxEars)*2),
+        dwg.add(dwg.ellipse(center=(xysLeftEar[0], xysLeftEar[1]), r=(int(dxEars), int(dxEars)*2),
                            fill='brown', fill_opacity=1.0, stroke=color))
 
-        dwg.add(dwg.ellipse(center=(xRightEar[0], xRightEar[1]), r=(int(dxEars), int(dxEars)*2),
+        dwg.add(dwg.ellipse(center=(xysRightEar[0], xysRightEar[1]), r=(int(dxEars), int(dxEars)*2),
                             fill='brown', fill_opacity=1.0, stroke=color))
 
     for a, b in EDGES:
