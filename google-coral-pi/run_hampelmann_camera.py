@@ -63,15 +63,12 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
     xysNose = xys.get("nose")
     xysLeftEar = xys.get("left ear")
     xysRightEar = xys.get("right ear")
-    if not (xysNose is None or xysLeftEar is None or xysRightEar is None):
+    if not (xysNose is None or xysLeftEar is None or xysRightEar is None) and False:
         xLeftEar = xysLeftEar[1]
         xRightEar = xysRightEar[1]
         dxEars = abs(xLeftEar - xRightEar)
-        #dwg.add(dwg.circle(center=(xysNose[0], xysNose[1]), r=int(dxEars/3.0),
-        #                       fill='red', fill_opacity=1.0, stroke=color))
-
-        noseImage = SVGImage("Nose.png", (xysNose[0], xysNose[1]),(64, 64))
-        dwg.add(noseImage)
+        dwg.add(dwg.circle(center=(xysNose[0], xysNose[1]), r=int(dxEars/3.0),
+                               fill='red', fill_opacity=1.0, stroke=color))
 
     for a, b in EDGES:
         if a not in xys or b not in xys: continue
@@ -79,6 +76,9 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
         bx, by = xys[b]
         dwg.add(dwg.line(start=(ax, ay), end=(bx, by), stroke=color, stroke_width=2))
 
+    if not xysNose is None:
+        noseImage = SVGImage("Nose.png", (xysNose[0], xysNose[1]), (64, 64))
+        dwg.add(noseImage)
 
 def run(callback, use_appsrc=False):
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
