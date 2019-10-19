@@ -54,7 +54,7 @@ def shadow_text(dwg, x, y, text, font_size=16):
                      font_size=font_size, style='font-family:sans-serif'))
 
 
-def draw_pose(dwg, pose, color='yellow', threshold=0.2):
+def draw_pose(dwg, pose, color='white', threshold=0.2):
     xys = {}
     for label, keypoint in pose.keypoints.items():
         if keypoint.score < threshold: continue
