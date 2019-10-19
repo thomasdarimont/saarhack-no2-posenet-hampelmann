@@ -51,8 +51,6 @@ def shadow_text(dwg, x, y, text, font_size=16):
     dwg.add(dwg.text(text, insert=(x, y), fill='white',
                      font_size=font_size, style='font-family:sans-serif'))
 
-noseImage=SVGImage("../media/Nose.png")
-
 # dwg: svg_canvas, pose
 def draw_pose(dwg, pose, color='yellow', threshold=0.2):
     xys = {}
@@ -61,9 +59,6 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
         xys[label] = (int(keypoint.yx[1]), int(keypoint.yx[0]))
         dwg.add(dwg.circle(center=(int(keypoint.yx[1]), int(keypoint.yx[0])), r=5,
                            fill='cyan', fill_opacity=keypoint.score, stroke=color))
-
-    global noseImage
-    dwg.add(noseImage)
 
     xysNose = xys.get("nose")
     xysLeftEar = xys.get("left ear")
@@ -74,6 +69,9 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
         dxEars = abs(xLeftEar - xRightEar)
         dwg.add(dwg.circle(center=(xysNose[0], xysNose[1]), r=int(dxEars/3.0),
                                fill='red', fill_opacity=1.0, stroke=color))
+
+        noseImage = SVGImage("../media/Nose.png")
+        dwg.add(noseImage, (xysNose[0], xysNose[1]),(64, 64))
 
     for a, b in EDGES:
         if a not in xys or b not in xys: continue
