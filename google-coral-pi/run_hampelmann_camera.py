@@ -67,8 +67,8 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
         xLeftEar = xysLeftEar[1]
         xRightEar = xysRightEar[1]
         dxEars = abs(xLeftEar - xRightEar)
-        dwg.add(dwg.circle(center=(xysNose[0], xysNose[1]), r=int(dxEars/3.0),
-                               fill='red', fill_opacity=1.0, stroke=color))
+        #dwg.add(dwg.circle(center=(xysNose[0], xysNose[1]), r=int(dxEars/3.0),
+        #                       fill='red', fill_opacity=1.0, stroke=color))
 
         noseImage = SVGImage("file:///../media/Nose.png", (xysNose[0], xysNose[1]),(64, 64))
         dwg.add(noseImage)
