@@ -1,5 +1,4 @@
-# Original Copyright 2019 Google LLC
-# Adapted pose_camera.py at Saar Hackathon November 2019 https://www.what-the-hack.saarland/
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,10 +14,12 @@
 
 import argparse
 from functools import partial
+import re
 import time
 
+import numpy as np
+from PIL import Image
 import svgwrite
-from svgwrite.image import Image as SVGImage
 import gstreamer
 
 from pose_engine import PoseEngine
@@ -45,13 +46,14 @@ EDGES = (
     ('right knee', 'right ankle'),
 )
 
+
 def shadow_text(dwg, x, y, text, font_size=16):
     dwg.add(dwg.text(text, insert=(x + 1, y + 1), fill='black',
                      font_size=font_size, style='font-family:sans-serif'))
     dwg.add(dwg.text(text, insert=(x, y), fill='white',
                      font_size=font_size, style='font-family:sans-serif'))
 
-# dwg: svg_canvas, pose
+
 def draw_pose(dwg, pose, color='yellow', threshold=0.2):
     xys = {}
     for label, keypoint in pose.keypoints.items():
@@ -60,34 +62,12 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
         dwg.add(dwg.circle(center=(int(keypoint.yx[1]), int(keypoint.yx[0])), r=5,
                            fill='cyan', fill_opacity=keypoint.score, stroke=color))
 
-    xysNose = xys.get("nose")
-    xysLeftEar = xys.get("left ear")
-    xysRightEar = xys.get("right ear")
-    if not (xysNose is None or xysLeftEar is None or xysRightEar is None):
-        xLeftEar = xysLeftEar[1]
-        xRightEar = xysRightEar[1]
-        dxEars = abs(xLeftEar - xRightEar)
-        dwg.add(dwg.circle(center=(xysNose[0], xysNose[1]), r=int(dxEars/1.3),
-                               fill='red', fill_opacity=1.0, stroke=color))
-
-        dwg.add(dwg.ellipse(center=(xysLeftEar[0], xysLeftEar[1]), r=(int(dxEars), int(dxEars)*1.5),
-                           fill='brown', fill_opacity=1.0, stroke=color))
-
-        dwg.add(dwg.ellipse(center=(xysRightEar[0], xysRightEar[1]), r=(int(dxEars), int(dxEars)*1.5),
-                            fill='brown', fill_opacity=1.0, stroke=color))
-
     for a, b in EDGES:
         if a not in xys or b not in xys: continue
-
-        if a == "nose" or b == "nose": continue
-
         ax, ay = xys[a]
         bx, by = xys[b]
         dwg.add(dwg.line(start=(ax, ay), end=(bx, by), stroke=color, stroke_width=2))
 
-#    if not xysNose is None:
-#        noseImage = SVGImage("Nose.png", insert=(xysNose[0], xysNose[1]), size=(64, 64))
-#        dwg.add(noseImage)
 
 def run(callback, use_appsrc=False):
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
