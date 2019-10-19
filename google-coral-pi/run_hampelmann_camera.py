@@ -78,6 +78,9 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
 
     for a, b in EDGES:
         if a not in xys or b not in xys: continue
+
+        if a == "nose" or b == "nose": continue
+
         ax, ay = xys[a]
         bx, by = xys[b]
         dwg.add(dwg.line(start=(ax, ay), end=(bx, by), stroke=color, stroke_width=2))
