@@ -63,9 +63,9 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
         dwg.add(dwg.circle(center=(int(keypoint.yx[1]), int(keypoint.yx[0])), r=5,
                            fill='cyan', fill_opacity=keypoint.score, stroke=color))
 
-    xysNose = xys["nose"];
-    xysLeftEar = xys["left ear"];
-    xysRightEar = xys["right ear"];
+    xysNose = xys.get("nose")
+    xysLeftEar = xys.get("left ear")
+    xysRightEar = xys.get("right ear")
     if not (xysNose is None or xysLeftEar is None or xysRightEar is None):
         xLeftEar = xysLeftEar[1]
         xRightEar = xysRightEar[1]
