@@ -70,8 +70,8 @@ def draw_pose(dwg, pose, color='yellow', threshold=0.2):
         dwg.add(dwg.circle(center=(xysNose[0], xysNose[1]), r=int(dxEars/3.0),
                                fill='red', fill_opacity=1.0, stroke=color))
 
-        noseImage = SVGImage("../media/Nose.png")
-        dwg.add(noseImage, (xysNose[0], xysNose[1]),(64, 64))
+        noseImage = SVGImage("../media/Nose.png", (xysNose[0], xysNose[1]),(64, 64))
+        dwg.add(noseImage)
 
     for a, b in EDGES:
         if a not in xys or b not in xys: continue
